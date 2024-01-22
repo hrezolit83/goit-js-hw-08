@@ -73,10 +73,13 @@ const images = [
     if (event.target.classList.contains("gallery-image")) {
         const originalSrc = event.target.dataset.source;
         lightbox = basicLightbox.create(
-            `<img width="1400" height="900" src="${originalSrc}">`
+            `<img width="1400" height="900" src="${originalSrc}">`,
+            {
+              onShow: () => {document.addEventListener('keydown', handleKeydown)},
+              onClose: () => {document.removeEventListener('keydown', handleKeydown)},
+            }
         );
         lightbox.show();
-        document.addEventListener('keydown', handleKeydown);
     };
   });
 
@@ -109,3 +112,5 @@ const images = [
     .join("");
 
     gallery.innerHTML = markup;
+
+  
